@@ -8,20 +8,24 @@ using Microsoft.Extensions.Logging;
 using BirthdayNote.Models;
 using DomainLayer;
 using DomainLayer.ViewModels;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BirthdayNote.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHostingEnvironment _hostingEnvironment;
         private readonly BirthdayService _service;
 
-
         public HomeController(BirthdayService service,
-            ILogger<HomeController> logger)
+            ILogger<HomeController> logger,
+            IHostingEnvironment environment)
         {
             _service = service;
             _logger = logger;
+            _hostingEnvironment = environment;
         }
 
         public IActionResult Index()
@@ -49,13 +53,26 @@ namespace BirthdayNote.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(BirthdayViewModel birthdayViewModel)
+        public async Task<IActionResult> Create(BirthdayViewModel birthdayViewModel)
         {
             if (ModelState.IsValid)
             {
+                if (birthdayViewModel.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(birthdayViewModel.ImageFile.FileName)
+                        + DateTime.Now.ToString("yyMMddHHMMssfff")
+                        + Path.GetExtension(birthdayViewModel.ImageFile.FileName);
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Images\\");
+                    using (var fileStream = new FileStream(filePath + fileName, FileMode.Create))
+                    {
+                        await birthdayViewModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                    birthdayViewModel.PhotoPath = fileName;
+                }
+
                 _service.CreateBirthday(birthdayViewModel);
             }
-            return View();
+            return View(birthdayViewModel);
         }
 
         [HttpPost]
@@ -64,6 +81,20 @@ namespace BirthdayNote.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (birthdayViewModel.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(birthdayViewModel.ImageFile.FileName)
+                        + DateTime.Now.ToString("yyMMddHHMMssfff")
+                        + Path.GetExtension(birthdayViewModel.ImageFile.FileName);
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Images\\");
+                    using (var fileStream = new FileStream(filePath + fileName, FileMode.Create))
+                    {
+                        birthdayViewModel.ImageFile.CopyTo(fileStream);
+                    }
+                    birthdayViewModel.PhotoPath = fileName;
+                }
+
+
                 _service.UpdateBirthday(birthdayViewModel);
                 return RedirectToAction("Index");
             }

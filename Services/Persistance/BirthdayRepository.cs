@@ -17,10 +17,11 @@ namespace Services.Persistance
             _context = context;
         }
 
-        public void CreateBirthday(Birthday birthday)
+        public int CreateBirthday(Birthday birthday)
         {
             _context.Birthdays.Add(birthday);
             _context.SaveChanges();
+            return birthday.Id;
         }
         public Birthday GetBirthday(int Id)
         {            

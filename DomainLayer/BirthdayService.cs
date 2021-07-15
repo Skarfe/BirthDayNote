@@ -47,7 +47,7 @@ namespace DomainLayer
             };
             return birthdayVM;
         }
-        public void CreateBirthday(BirthdayViewModel birthdayViewModel)
+        public int CreateBirthday(BirthdayViewModel birthdayViewModel)
         {
             Birthday birthday = new Birthday();
             {
@@ -58,6 +58,7 @@ namespace DomainLayer
                 birthday.Email = birthdayViewModel.Email;
             }
             _repository.CreateBirthday(birthday);
+            return birthday.Id;
         }
         public void UpdateBirthday(BirthdayViewModel birthdayViewModel)
         {

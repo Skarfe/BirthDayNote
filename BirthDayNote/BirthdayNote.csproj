@@ -23,4 +23,19 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\0.png" />
+    <None Include="wwwroot\Images\100-explicit-architecture-svg210715200703492.png" />
+    <None Include="wwwroot\Images\15.png" />
+    <None Include="wwwroot\Images\16.PNG" />
+    <None Include="wwwroot\Images\18.png" />
+    <None Include="wwwroot\Images\SQL.PNG3927468.PNG" />
+    <None Include="wwwroot\Images\SQL210715200706428.PNG" />
+    <None Include="wwwroot\Images\SQL210715200730123.PNG" />
+  </ItemGroup>
+
 </Project>
