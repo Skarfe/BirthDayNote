@@ -6,32 +6,78 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BirthdayNote.Models;
+using DomainLayer;
+using DomainLayer.ViewModels;
 
 namespace BirthdayNote.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly BirthdayService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(BirthdayService service,
+            ILogger<HomeController> logger)
         {
+            _service = service;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<BirthdayViewModel> birthdays = _service.GetUpcommingBirthdays();
+            return View(birthdays);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Details(int Id)
+        {
+
+            BirthdayViewModel birthdayViewModel = _service.GetBirthday(Id);
+
+            return View(birthdayViewModel);
+        }
+        public IActionResult Edit(int Id)
+        {
+            BirthdayViewModel birthdayViewModel = _service.GetBirthday(Id);
+            return View(birthdayViewModel);
+        }
+        public IActionResult Create()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(BirthdayViewModel birthdayViewModel)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (ModelState.IsValid)
+            {
+                _service.CreateBirthday(birthdayViewModel);
+            }
+            return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BirthdayViewModel birthdayViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.UpdateBirthday(birthdayViewModel);
+                return RedirectToAction("Index");
+            }
+
+            return View(birthdayViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RemoveBirthday(int Id)
+        {
+            _service.RemoveBirthday(Id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

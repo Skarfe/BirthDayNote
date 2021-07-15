@@ -4,15 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Entities
+namespace DomainLayer.ViewModels
 {
-    public class Birthday
+    public class BirthdayViewModel : IComparable<BirthdayViewModel>
     {
         public int Id { get; set; }
         public DateTime BirthdayDate { get; set; }
         public String PersoneName { get; set; }
         public String PhotoPath { get; set; }
         public String Email { get; set; }
-        public DateTime LastTimeEmailSent { get; set; }
+        public int CompareTo(BirthdayViewModel b)
+        {
+            return this.BirthdayDate.CompareTo(b.BirthdayDate);
+        }
     }
 }

@@ -1,8 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<DomainLayer.ViewModels.BirthdayViewModel>
+@using System.Globalization;
+@{ ViewData["Title"] = "Home Page"; }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table id="BirthdayTable" class="w3-hide w3-show w3-table w3-bordered w3-border w3-hoverable">
+    <tr>
+        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(1)')" style="width:50%">Name <i class="fa fa-sort" style="font-size:13px;"></i></th>
+        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(2)')" style="width:30%">Birthday <i class="fa fa-sort" style="font-size:13px;"></i></th>
+        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(3)')" style="width:20%">Email <i class="fa fa-sort" style="font-size:13px;"></i></th>
+        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(4)')" style="width:20%">PhotoPath <i class="fa fa-sort" style="font-size:13px;"></i></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr class="item" onclick="document.location = '/Home/Details/@item.Id';">
+    <td>@item.PersoneName</td>
+    <td>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</td>
+    <td>@item.Email</td>
+    <td>@item.PhotoPath</td>
+</tr>}
+</table>
+
+
+<form action="/Home/Create">
+    <p>
+        <input type="submit" value="Create New" class="btn btn-success" />
+    </p>
+</form>

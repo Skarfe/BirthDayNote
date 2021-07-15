@@ -22,6 +22,10 @@ namespace Services.Persistance
             _context.Birthdays.Add(birthday);
             _context.SaveChanges();
         }
+        public Birthday GetBirthday(int Id)
+        {            
+            return _context.Birthdays.FirstOrDefault(b => b.Id == Id);
+        }
 
         public void UpdateBirthday(Birthday birthday)
         {
@@ -29,9 +33,9 @@ namespace Services.Persistance
             _context.SaveChanges();
         }
 
-        public void RemoveBirthday(Birthday birthday)
+        public void RemoveBirthday(int Id)
         {
-            _context.Birthdays.Remove(birthday);
+            _context.Birthdays.Remove(_context.Birthdays.FirstOrDefault(b => b.Id == Id));
             _context.SaveChanges();
         }
 
@@ -43,8 +47,8 @@ namespace Services.Persistance
 
         public List<Birthday> GetUpcommingBirthdays()
         {
-            List<Birthday> list = _context.Birthdays.Where(b => (b.BirthdayTime.Month == DateTime.Now.Month && b.BirthdayTime.Day >= DateTime.Now.Day) || 
-                (b.BirthdayTime.Month == DateTime.Now.AddMonths(1).Month && b.BirthdayTime.Day <= DateTime.Now.Day)).ToList();
+            List<Birthday> list = _context.Birthdays.Where(b => (b.BirthdayDate.Month == DateTime.Now.Month && b.BirthdayDate.Day >= DateTime.Now.Day) || 
+                (b.BirthdayDate.Month == DateTime.Now.AddMonths(1).Month && b.BirthdayDate.Day <= DateTime.Now.Day)).ToList();
             return list;
         }
     }

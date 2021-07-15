@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DomainLayer;
+using DomainLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,12 +28,14 @@ namespace BirthdayNote
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<BirthdayContext>(options =>
                 options.UseSqlServer(connection, b => b.MigrationsAssembly("BirthdayNote")));
 
+            services.AddScoped<BirthdayService>();
+            services.AddScoped<IBirthdayRepository, BirthdayRepository>();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
