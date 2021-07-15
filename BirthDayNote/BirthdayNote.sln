@@ -4,10 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayNote", "BirthdayNote.csproj", "{963A8235-D3E4-44CE-81C4-DEF058E9F67F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D255564A-0AAC-467D-B5CD-610061023330} = {D255564A-0AAC-467D-B5CD-610061023330}
+		{35DF5482-CA37-49FA-9DC3-08F99FA12F4E} = {35DF5482-CA37-49FA-9DC3-08F99FA12F4E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainLayer", "..\DomainLayer\DomainLayer.csproj", "{35DF5482-CA37-49FA-9DC3-08F99FA12F4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{D255564A-0AAC-467D-B5CD-610061023330}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35DF5482-CA37-49FA-9DC3-08F99FA12F4E} = {35DF5482-CA37-49FA-9DC3-08F99FA12F4E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

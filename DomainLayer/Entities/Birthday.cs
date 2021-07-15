@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Entities
 {
-    class Class1
+    public class Birthday
     {
+        public int Id { get; set; }
+        public DateTime BirthdayTime { get; set; }
+        public String PersoneName { get; set; }
+        public String PhotoPath { get; set; }
+        public String Email { get; set; }
+        public DateTime LastTimeEmailSent { get; set; }
     }
 }
