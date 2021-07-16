@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Messaging.ServiceBus;
 using DomainLayer;
 using DomainLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Services.Notifications;
 using Services.Persistance;
 
 namespace BirthdayNote
@@ -33,9 +34,11 @@ namespace BirthdayNote
             services.AddDbContext<BirthdayContext>(options =>
                 options.UseSqlServer(connection, b => b.MigrationsAssembly("BirthdayNote")));
 
+            services.AddControllersWithViews();
             services.AddScoped<BirthdayService>();
             services.AddScoped<IBirthdayRepository, BirthdayRepository>();
-            services.AddControllersWithViews();
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddHostedService<Notification>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +54,8 @@ namespace BirthdayNote
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

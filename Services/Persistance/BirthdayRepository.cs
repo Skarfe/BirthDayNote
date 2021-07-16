@@ -48,8 +48,15 @@ namespace Services.Persistance
 
         public List<Birthday> GetUpcommingBirthdays()
         {
-            List<Birthday> list = _context.Birthdays.Where(b => (b.BirthdayDate.Month == DateTime.Now.Month && b.BirthdayDate.Day >= DateTime.Now.Day) || 
+            List<Birthday> list = _context.Birthdays.Where(b => (b.BirthdayDate.Month == DateTime.Now.Month && b.BirthdayDate.Day >= DateTime.Now.Day) ||
                 (b.BirthdayDate.Month == DateTime.Now.AddMonths(1).Month && b.BirthdayDate.Day <= DateTime.Now.Day)).ToList();
+            return list;
+        }
+        public List<Birthday> GetTodayBirthdaysNotNotificated()
+        {
+            List<Birthday> list = _context.Birthdays.Where(b => (b.BirthdayDate.Month == DateTime.Now.Month     
+                && b.BirthdayDate.Day == DateTime.Now.Day 
+                && b.LastTimeEmailSent.Year != DateTime.Now.Year)).ToList();
             return list;
         }
     }

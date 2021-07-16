@@ -15,5 +15,6 @@ namespace DomainLayer.Interfaces
         public void RemoveBirthday(int id);
         public List<Birthday> GetBirthdays();
         public List<Birthday> GetUpcommingBirthdays();
+        public List<Birthday> GetTodayBirthdaysNotNotificated();
     }
 }

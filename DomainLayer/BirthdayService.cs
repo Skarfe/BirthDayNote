@@ -33,6 +33,10 @@ namespace DomainLayer
             birthdaysVM.Sort();
             return birthdaysVM;
         }
+        public List<Birthday> GetTodayBirthdaysNotNotificaded()
+        {
+            return _repository.GetTodayBirthdaysNotNotificated();
+        }
         public BirthdayViewModel GetBirthday(int Id)
         {
             Birthday birthday = _repository.GetBirthday(Id);
@@ -71,6 +75,10 @@ namespace DomainLayer
                 birthday.PhotoPath = birthdayViewModel.PhotoPath;
                 birthday.Email = birthdayViewModel.Email;
             }
+            _repository.UpdateBirthday(birthday);
+        }
+        public void UpdateBirthday(Birthday birthday)
+        {
             _repository.UpdateBirthday(birthday);
         }
         public void RemoveBirthday(int Id)

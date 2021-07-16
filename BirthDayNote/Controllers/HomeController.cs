@@ -17,33 +17,33 @@ namespace BirthdayNote.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly BirthdayService _service;
+        private readonly BirthdayService _birthdayService;
 
-        public HomeController(BirthdayService service,
+        public HomeController(BirthdayService birthdayService,
             ILogger<HomeController> logger,
             IHostingEnvironment environment)
         {
-            _service = service;
+            _birthdayService = birthdayService;
             _logger = logger;
             _hostingEnvironment = environment;
         }
 
         public IActionResult Index()
         {
-            List<BirthdayViewModel> birthdays = _service.GetUpcommingBirthdays();
+            List<BirthdayViewModel> birthdays = _birthdayService.GetUpcommingBirthdays();
             return View(birthdays);
         }
 
         public IActionResult Details(int Id)
         {
 
-            BirthdayViewModel birthdayViewModel = _service.GetBirthday(Id);
+            BirthdayViewModel birthdayViewModel = _birthdayService.GetBirthday(Id);
 
             return View(birthdayViewModel);
         }
         public IActionResult Edit(int Id)
         {
-            BirthdayViewModel birthdayViewModel = _service.GetBirthday(Id);
+            BirthdayViewModel birthdayViewModel = _birthdayService.GetBirthday(Id);
             return View(birthdayViewModel);
         }
         public IActionResult Create()
@@ -70,7 +70,7 @@ namespace BirthdayNote.Controllers
                     birthdayViewModel.PhotoPath = fileName;
                 }
 
-                _service.CreateBirthday(birthdayViewModel);
+                _birthdayService.CreateBirthday(birthdayViewModel);
             }
             return View(birthdayViewModel);
         }
@@ -95,7 +95,7 @@ namespace BirthdayNote.Controllers
                 }
 
 
-                _service.UpdateBirthday(birthdayViewModel);
+                _birthdayService.UpdateBirthday(birthdayViewModel);
                 return RedirectToAction("Index");
             }
 
@@ -106,7 +106,7 @@ namespace BirthdayNote.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RemoveBirthday(int Id)
         {
-            _service.RemoveBirthday(Id);
+            _birthdayService.RemoveBirthday(Id);
             return RedirectToAction("Index");
         }
 
