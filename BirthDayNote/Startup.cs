@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
+using BirthdayNote.Filters;
 using DomainLayer;
 using DomainLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,7 @@ namespace BirthdayNote
             services.AddDbContext<BirthdayContext>(options =>
                 options.UseSqlServer(connection, b => b.MigrationsAssembly("BirthdayNote")));
 
+            services.AddScoped<MyExceptionFilter>();
             services.AddControllersWithViews();
             services.AddScoped<BirthdayService>();
             services.AddScoped<IBirthdayRepository, BirthdayRepository>();

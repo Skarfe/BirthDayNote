@@ -17,6 +17,7 @@ namespace DomainLayer.ViewModels
         [StringLength(50, MinimumLength = 3)]
         public String PersoneName { get; set; }
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Date of Birth")]
         public DateTime BirthdayDate { get; set; }
         [Required]

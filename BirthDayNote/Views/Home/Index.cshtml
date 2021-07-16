@@ -4,10 +4,9 @@
 
 <table id="BirthdayTable" class="w3-hide w3-show w3-table w3-bordered w3-border w3-hoverable">
     <tr>
-        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(1)')" style="width:50%">Name <i class="fa fa-sort" style="font-size:13px;"></i></th>
-        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(2)')" style="width:30%">Birthday <i class="fa fa-sort" style="font-size:13px;"></i></th>
-        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(3)')" style="width:20%">Email <i class="fa fa-sort" style="font-size:13px;"></i></th>
-        <th class="w3-button" onclick="w3.sortHTML('#VotingsTableActive', '.item', 'td:nth-child(4)')" style="width:20%">PhotoPath <i class="fa fa-sort" style="font-size:13px;"></i></th>
+        <th class="w3-button" onclick="w3.sortHTML('#TableActive', '.item', 'td:nth-child(1)')" style="width:50%">Name <i class="fa fa-sort" style="font-size:13px;"></i></th>
+        <th class="w3-button" onclick="w3.sortHTML('#TableActive', '.item', 'td:nth-child(2)')" style="width:30%">Birthday <i class="fa fa-sort" style="font-size:13px;"></i></th>
+        <th class="w3-button" onclick="w3.sortHTML('#TableActive', '.item', 'td:nth-child(3)')" style="width:30%">Email <i class="fa fa-sort" style="font-size:13px;"></i></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -15,7 +14,6 @@
     <td>@item.PersoneName</td>
     <td>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</td>
     <td>@item.Email</td>
-    <td>@item.ImageName</td>
 </tr>}
 </table>
 

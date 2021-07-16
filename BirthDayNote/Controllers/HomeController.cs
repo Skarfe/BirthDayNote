@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BirthdayNote.Models;
+﻿using BirthdayNote.Filters;
 using DomainLayer;
 using DomainLayer.ViewModels;
-using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace BirthdayNote.Controllers
 {
+    [ServiceFilter(typeof(MyExceptionFilter))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -33,12 +32,9 @@ namespace BirthdayNote.Controllers
             List<BirthdayViewModel> birthdays = _birthdayService.GetUpcommingBirthdays();
             return View(birthdays);
         }
-
         public IActionResult Details(int Id)
         {
-
             BirthdayViewModel birthdayViewModel = _birthdayService.GetBirthday(Id);
-
             return View(birthdayViewModel);
         }
         public IActionResult Edit(int Id)
@@ -109,6 +105,5 @@ namespace BirthdayNote.Controllers
             _birthdayService.RemoveBirthday(Id);
             return RedirectToAction("Index");
         }
-
     }
 }
