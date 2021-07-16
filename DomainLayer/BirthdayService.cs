@@ -26,7 +26,7 @@ namespace DomainLayer
                     Id = b.Id,
                     BirthdayDate = b.BirthdayDate,
                     PersoneName = b.PersoneName,
-                    PhotoPath = b.PhotoPath,
+                    ImageName = b.ImageName,
                     Email = b.Email,
                 })
                 .ToList();
@@ -46,7 +46,7 @@ namespace DomainLayer
                 Id = birthday.Id,
                 BirthdayDate = birthday.BirthdayDate,
                 PersoneName = birthday.PersoneName,
-                PhotoPath = birthday.PhotoPath,
+                ImageName = birthday.ImageName,
                 Email = birthday.Email
             };
             return birthdayVM;
@@ -58,7 +58,7 @@ namespace DomainLayer
                 birthday.Id = birthdayViewModel.Id;
                 birthday.BirthdayDate = birthdayViewModel.BirthdayDate;
                 birthday.PersoneName = birthdayViewModel.PersoneName;
-                birthday.PhotoPath = birthdayViewModel.PhotoPath;
+                birthday.ImageName = birthdayViewModel.ImageName;
                 birthday.Email = birthdayViewModel.Email;
             }
             _repository.CreateBirthday(birthday);
@@ -72,7 +72,7 @@ namespace DomainLayer
                 birthday.Id = birthdayViewModel.Id;
                 birthday.BirthdayDate = birthdayViewModel.BirthdayDate;
                 birthday.PersoneName = birthdayViewModel.PersoneName;
-                birthday.PhotoPath = birthdayViewModel.PhotoPath;
+                birthday.ImageName = birthdayViewModel.ImageName;
                 birthday.Email = birthdayViewModel.Email;
             }
             _repository.UpdateBirthday(birthday);

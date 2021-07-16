@@ -13,7 +13,7 @@ namespace DomainLayer.Entities
         public int Id { get; set; }
         public DateTime BirthdayDate { get; set; }
         public String PersoneName { get; set; }
-        public String PhotoPath { get; set; }
+        public String ImageName { get; set; }
         public String Email { get; set; }
         public DateTime LastTimeEmailSent { get; set; }
     }

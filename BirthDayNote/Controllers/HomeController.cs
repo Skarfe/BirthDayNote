@@ -67,7 +67,7 @@ namespace BirthdayNote.Controllers
                     {
                         await birthdayViewModel.ImageFile.CopyToAsync(fileStream);
                     }
-                    birthdayViewModel.PhotoPath = fileName;
+                    birthdayViewModel.ImageName = fileName;
                 }
 
                 _birthdayService.CreateBirthday(birthdayViewModel);
@@ -91,7 +91,7 @@ namespace BirthdayNote.Controllers
                     {
                         birthdayViewModel.ImageFile.CopyTo(fileStream);
                     }
-                    birthdayViewModel.PhotoPath = fileName;
+                    birthdayViewModel.ImageName = fileName;
                 }
 
 
