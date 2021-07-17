@@ -35,6 +35,25 @@ namespace DomainLayer
             birthdaysVM.Sort();
             return birthdaysVM;
         }
+        //Загрузить все события
+        public List<BirthdayViewModel> GetAllBirthdays()
+        {
+            List<Birthday> birthdays = _repository.GetBirthdays();
+            //Перевод сущностей в модели
+            List<BirthdayViewModel> birthdaysVM = birthdays
+                .Select(b => new BirthdayViewModel
+                {
+                    Id = b.Id,
+                    BirthdayDate = b.BirthdayDate,
+                    PersoneName = b.PersoneName,
+                    ImageName = b.ImageName,
+                    Email = b.Email,
+                })
+                .ToList();
+            //Сортировка (по дате)
+            birthdaysVM.Sort();
+            return birthdaysVM;
+        }
         //Получить текущие события
         public List<Birthday> GetTodayBirthdaysNotNotificaded()
         {

@@ -26,11 +26,16 @@ namespace BirthdayNote.Controllers
             _logger = logger;
             _hostingEnvironment = environment;
         }
-
         public IActionResult Index()
         {
             //Начальная страница, загрузка ближайших дней рождений (в течении следующего месяца)
             List<BirthdayViewModel> birthdays = _birthdayService.GetUpcommingBirthdays();
+            return View(birthdays);
+        }
+        public IActionResult AllBirthdays()
+        {
+            //Начальная страница, все дни рождения
+            List<BirthdayViewModel> birthdays = _birthdayService.GetAllBirthdays();
             return View(birthdays);
         }
         public IActionResult Details(int Id)
