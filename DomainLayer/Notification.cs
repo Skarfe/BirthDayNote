@@ -32,7 +32,7 @@ namespace DomainLayer
                 {
                     try
                     {
-                        await _sender.SendEmailAsync(birthday.Email, "Happy Birthday!", "Hello!");
+                        await _sender.SendEmailAsync(birthday.Email, "Happy Birthday!", birthday.PersoneName + "! Happy birthday!");
                         birthday.LastTimeEmailSent = DateTime.Now;
                         birthdayService.UpdateBirthday(birthday);
                     } catch
@@ -45,7 +45,7 @@ namespace DomainLayer
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
-            TimeSpan.FromHours(1));
+            TimeSpan.FromMinutes(15));
 
             return Task.CompletedTask;
         }

@@ -15,7 +15,7 @@ namespace Services.Notifications
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Администрация сайта", "birthday.note@yandex.ru"));
+            emailMessage.From.Add(new MailboxAddress("Birthday Note", "birthday.note@yandex.ru"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)

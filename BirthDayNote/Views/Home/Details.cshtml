@@ -7,16 +7,11 @@
 
 <h1>Details</h1>
 
+<img src=@if (Model.ImageName != null) {@("~/Images/" + Model.ImageName);}
+            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:200px">
 <div>
-    <h4>Birthday</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthdayDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BirthdayDate)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PersoneName)
         </dt>
@@ -24,10 +19,10 @@
             @Html.DisplayFor(model => model.PersoneName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageName)
+            @Html.DisplayNameFor(model => model.BirthdayDate)
         </dt>
         <dd class="col-sm-10">
-            <img src="@("~/Images/" + Model.ImageName)" asp-append-version="true" width="250" height="250"/>
+            @Html.DisplayFor(model => model.BirthdayDate)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
@@ -37,15 +32,44 @@
         </dd>
     </dl>
 </div>
-<td align="right">
-    <form action="/Home/Edit">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Edit Birthday" class="btn btn-outline-secondary" />
-    </form>
-</td>
-<td align="right">
-    <form asp-action="RemoveBirthday">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete Birthday" class="btn btn-danger" />
-    </form>
-</td>
+<table class="w3-left w3-section">
+    <tr>
+        <td align="right">
+            <form action="/Home/Edit">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Edit" class="btn btn-outline-secondary" style="width:150px" />
+            </form>
+        </td>
+        <td align="right">
+            <div>
+                <input type="submit" value="Delete" class="btn btn-danger" onclick="document.getElementById('id01').style.display='block'" style="width:150px" />
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+        <header class="w3-container w3-red">
+            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-large w3-red w3-display-topright">×</span>
+            <h3>Confirmation</h3>
+        </header>
+        <div class="w3-container">
+            <p>Are you Sure to delete this birthday?</p>
+        </div>
+        <footer class="w3-container w3-display-container">
+            <table class="w3-right w3-section">
+                <tr>
+                    <td align="right">
+                        <input type="submit" class="btn btn-outline-info" value="Close" onclick="document.getElementById('id01').style.display='none'" style="width:150px" />
+                    </td>
+                    <td align="right">
+                        <form asp-action="RemoveBirthday">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete" class="btn btn-danger" style="width:150px" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </footer>
+    </div>
+</div>

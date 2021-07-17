@@ -2,24 +2,26 @@
 @using System.Globalization;
 @{ ViewData["Title"] = "Home Page"; }
 
-<table id="BirthdayTable" class="w3-hide w3-show w3-table w3-bordered w3-border w3-hoverable">
-    <tr>
-        <th class="w3-button" onclick="w3.sortHTML('#TableActive', '.item', 'td:nth-child(1)')" style="width:50%">Name <i class="fa fa-sort" style="font-size:13px;"></i></th>
-        <th class="w3-button" onclick="w3.sortHTML('#TableActive', '.item', 'td:nth-child(2)')" style="width:30%">Birthday <i class="fa fa-sort" style="font-size:13px;"></i></th>
-        <th class="w3-button" onclick="w3.sortHTML('#TableActive', '.item', 'td:nth-child(3)')" style="width:30%">Email <i class="fa fa-sort" style="font-size:13px;"></i></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-<tr class="item" onclick="document.location = '/Home/Details/@item.Id';">
-    <td>@item.PersoneName</td>
-    <td>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</td>
-    <td>@item.Email</td>
-</tr>}
-</table>
+<div class="w3-container">
+    <ul class="w3-ul w3-card-4 w3-hoverable ">
+        
 
 
-<form action="/Home/Create">
-    <p>
-        <input type="submit" value="Create New" class="btn btn-success" />
-    </p>
-</form>
+        <li class="w3-bar w3-button w3-border w3-border-green" onclick="document.location = '/Home/Create'">
+            <a class="w3-large"><b>Add birthday ...</b></a>
+        </li>
+
+
+
+
+        @foreach (var item in Model)
+        {
+            <li class="w3-bar" onclick="document.location = '/Home/Details/@item.Id'">
+                <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
+            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:85px">
+                <span class="w3-large"><b>@item.PersoneName</b></span><br>
+                <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
+            </li>
+        }
+    </ul>
+</div>

@@ -68,7 +68,7 @@ namespace BirthdayNote.Controllers
 
                 _birthdayService.CreateBirthday(birthdayViewModel);
             }
-            return View(birthdayViewModel);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

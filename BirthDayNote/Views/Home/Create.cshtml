@@ -5,23 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>Birthday</h4>
+<h1>Add birthday</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BirthdayDate" class="control-label"></label>
-                <input asp-for="BirthdayDate" class="form-control" />
-                <span asp-validation-for="BirthdayDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="PersoneName" class="control-label"></label>
                 <input asp-for="PersoneName" class="form-control" />
                 <span asp-validation-for="PersoneName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthdayDate" class="control-label"></label>
+                <input asp-for="BirthdayDate" class="form-control" />
+                <span asp-validation-for="BirthdayDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -29,7 +27,6 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
                 <input asp-for="ImageFile" accept="image/*" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
@@ -38,10 +35,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
