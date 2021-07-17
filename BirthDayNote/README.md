@@ -1,2 +1,0 @@
-# BirthDayNote
-Birthday note app
