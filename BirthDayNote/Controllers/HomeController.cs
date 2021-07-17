@@ -29,21 +29,25 @@ namespace BirthdayNote.Controllers
 
         public IActionResult Index()
         {
+            //Начальная страница, загрузка ближайших дней рождений (в течении следующего месяца)
             List<BirthdayViewModel> birthdays = _birthdayService.GetUpcommingBirthdays();
             return View(birthdays);
         }
         public IActionResult Details(int Id)
         {
+            //Страница просмотра деталей 
             BirthdayViewModel birthdayViewModel = _birthdayService.GetBirthday(Id);
             return View(birthdayViewModel);
         }
         public IActionResult Edit(int Id)
         {
+            //Редактирования дня рождения
             BirthdayViewModel birthdayViewModel = _birthdayService.GetBirthday(Id);
             return View(birthdayViewModel);
         }
         public IActionResult Create()
         {
+            //Добавление нового дня рождения
             return View();
         }
 
@@ -51,23 +55,27 @@ namespace BirthdayNote.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BirthdayViewModel birthdayViewModel)
         {
+            //Проверка данных на ошибки
             if (ModelState.IsValid)
             {
+                //Была ли загружена фотография
                 if (birthdayViewModel.ImageFile != null)
                 {
+                    //создание неповторяющегося имени фотографии
                     string fileName = Path.GetFileNameWithoutExtension(birthdayViewModel.ImageFile.FileName)
                         + DateTime.Now.ToString("yyMMddHHMMssfff")
                         + Path.GetExtension(birthdayViewModel.ImageFile.FileName);
                     var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Images\\");
-                    using (var fileStream = new FileStream(filePath + fileName, FileMode.Create))
+                    using (var fileStream = new FileStream(filePath + fileName, FileMode.Create)) //Сохранение фотографии в дерикторию проекта
                     {
                         await birthdayViewModel.ImageFile.CopyToAsync(fileStream);
                     }
                     birthdayViewModel.ImageName = fileName;
                 }
-
+                //Сохранение дня рождения в БД
                 _birthdayService.CreateBirthday(birthdayViewModel);
             }
+            //Вернуться на начальную страницу
             return RedirectToAction("Index");
         }
 
@@ -75,22 +83,25 @@ namespace BirthdayNote.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(BirthdayViewModel birthdayViewModel)
         {
+            //Проверка данных на ошибки
             if (ModelState.IsValid)
             {
+                //Была ли загружена фотография
                 if (birthdayViewModel.ImageFile != null)
                 {
+                    //создание неповторяющегося имени фотографии
                     string fileName = Path.GetFileNameWithoutExtension(birthdayViewModel.ImageFile.FileName)
                         + DateTime.Now.ToString("yyMMddHHMMssfff")
                         + Path.GetExtension(birthdayViewModel.ImageFile.FileName);
                     var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Images\\");
-                    using (var fileStream = new FileStream(filePath + fileName, FileMode.Create))
+                    using (var fileStream = new FileStream(filePath + fileName, FileMode.Create)) //Сохранение фотографии в дерикторию проекта
                     {
                         birthdayViewModel.ImageFile.CopyTo(fileStream);
                     }
                     birthdayViewModel.ImageName = fileName;
                 }
 
-
+                //Обновление данных в БД
                 _birthdayService.UpdateBirthday(birthdayViewModel);
                 return RedirectToAction("Index");
             }
@@ -102,6 +113,7 @@ namespace BirthdayNote.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult RemoveBirthday(int Id)
         {
+            //Удаление дня рождения из БД
             _birthdayService.RemoveBirthday(Id);
             return RedirectToAction("Index");
         }

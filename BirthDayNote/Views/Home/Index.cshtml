@@ -4,19 +4,12 @@
 
 <div class="w3-container">
     <ul class="w3-ul w3-card-4 w3-hoverable ">
-        
-
-
         <li class="w3-bar w3-button w3-border w3-border-green" onclick="document.location = '/Home/Create'">
             <a class="w3-large"><b>Add birthday ...</b></a>
         </li>
-
-
-
-
         @foreach (var item in Model)
         {
-            <li class="w3-bar" onclick="document.location = '/Home/Details/@item.Id'">
+            <li class="w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
                 <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
             else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:85px">
                 <span class="w3-large"><b>@item.PersoneName</b></span><br>

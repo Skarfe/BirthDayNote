@@ -7,6 +7,7 @@ using DomainLayer.Entities;
 
 namespace DomainLayer.Interfaces
 {
+    //Интерфейс для работы с сохранением информации
     public interface IBirthdayRepository
     {
         public Birthday GetBirthday(int id);

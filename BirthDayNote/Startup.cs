@@ -30,15 +30,18 @@ namespace BirthdayNote
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            string connection = Configuration.GetConnectionString("DefaultConnection"); 
 
             services.AddDbContext<BirthdayContext>(options =>
                 options.UseSqlServer(connection, b => b.MigrationsAssembly("BirthdayNote")));
-
+            //Добавление зависимостей
             services.AddScoped<MyExceptionFilter>();
             services.AddControllersWithViews();
+
             services.AddScoped<BirthdayService>();
             services.AddScoped<IBirthdayRepository, BirthdayRepository>();
+            
+            //Сервис рассылки сообщений на почту
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddHostedService<Notification>(); 
         }
@@ -62,8 +65,6 @@ namespace BirthdayNote
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
