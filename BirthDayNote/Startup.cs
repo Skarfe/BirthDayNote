@@ -2,12 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure.Messaging.ServiceBus;
+using BirthdayNote.Filters;
+using DomainLayer;
+using DomainLayer.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Services.Notifications;
+using Services.Persistance;
 
 namespace BirthdayNote
 {
@@ -23,7 +30,20 @@ namespace BirthdayNote
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection"); 
+
+            services.AddDbContext<BirthdayContext>(options =>
+                options.UseSqlServer(connection, b => b.MigrationsAssembly("BirthdayNote")));
+            //Добавление зависимостей
+            services.AddScoped<MyExceptionFilter>();
             services.AddControllersWithViews();
+
+            services.AddScoped<BirthdayService>();
+            services.AddScoped<IBirthdayRepository, BirthdayRepository>();
+            
+            //Сервис рассылки сообщений на почту
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddHostedService<Notification>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,12 +59,12 @@ namespace BirthdayNote
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

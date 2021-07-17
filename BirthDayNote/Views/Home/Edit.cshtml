@@ -1,0 +1,50 @@
+﻿@model DomainLayer.ViewModels.BirthdayViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageName" />
+            <div class="form-group">
+                <label asp-for="PersoneName" class="control-label"></label>
+                <input asp-for="PersoneName" class="form-control" />
+                <span asp-validation-for="PersoneName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthdayDate" class="control-label"></label>
+                <input asp-for="BirthdayDate" class="form-control" />
+                <span asp-validation-for="BirthdayDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div>
+                    <img src=@if (Model.ImageName != null) {@("~/Images/" + Model.ImageName);}
+                    else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-card w3-hide-small" style="height:150px">
+                </div>
+            </div>
+            <div class="form-group">
+                <input asp-for="ImageFile" accept="image/*" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
