@@ -61,9 +61,9 @@ namespace Services.Persistance
         //Получить список сегодняшних не оповещённых событий (в этом году = сегодня)
         public List<Birthday> GetTodayBirthdaysNotNotificated()
         {
-            List<Birthday> list = _context.Birthdays.Where(b => (b.BirthdayDate.Month == DateTime.Now.Month     
-                && b.BirthdayDate.Day == DateTime.Now.Day 
-                && b.LastTimeEmailSent.Year != DateTime.Now.Year)).ToList();
+                List<Birthday> list = _context.Birthdays.Where(b => (
+                (b.BirthdayDate.DayOfYear == DateTime.Now.DayOfYear && b.BirthdayDate.Day == 29 && b.BirthdayDate.Month == 2)
+                || (b.BirthdayDate.Day == DateTime.Now.Day && b.BirthdayDate.Month == DateTime.Now.Month && b.LastTimeEmailSent.Year != DateTime.Now.Year))).ToList();
             return list;
         }
     }

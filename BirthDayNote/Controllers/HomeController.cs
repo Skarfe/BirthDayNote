@@ -35,7 +35,7 @@ namespace BirthdayNote.Controllers
         public IActionResult AllBirthdays()
         {
             //Начальная страница, все дни рождения
-            List<BirthdayViewModel> birthdays = _birthdayService.GetAllBirthdays();
+            List<List<BirthdayViewModel>> birthdays = _birthdayService.GetAllBirthdays();
             return View(birthdays);
         }
         public IActionResult Details(int Id)

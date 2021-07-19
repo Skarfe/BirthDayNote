@@ -1,23 +1,111 @@
-﻿@model List<DomainLayer.ViewModels.BirthdayViewModel>
+﻿@model List<List<DomainLayer.ViewModels.BirthdayViewModel>>
 @using System.Globalization;
 @{
     ViewData["Title"] = "AllBirthdays";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<input class="w3-input w3-border w3-padding" type="text" placeholder="Search ..." id="myInput" onkeyup="myFunctionSearch()">
 
+@if (Model[0].Count > 0)
+{
+    <div class="w3-button w3-block w3-gray w3-left-align w3-margin-top" onclick="myFunction('divTable0')">
+        Past<i class="fa fa-caret-down"></i>
+    </div>
+    <div class="w3-hide" id="divTable0">
+        <table class="w3-table-all w3-hoverable" id="table0">
+            @foreach (var item in Model[0])
+            {
+                <tr class="w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
+                    <td>
+                        <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
+            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:60px">
+                    </td>
+                    <td>
+                        <span class="w3-large"><b>@item.PersoneName</b></span><br>
+                        <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+@if (Model[1].Count > 0)
+{
+    <div class="w3-button w3-block w3-gray w3-left-align" onclick="myFunction('divTable1')">
+        Now<i class="fa fa-caret-down"></i>
+    </div>
+    <div class="w3-hide" id="divTable1">
+        <table class="w3-table-all w3-hoverable" id="table0">
 
+            @foreach (var item in Model[1])
+            {
+                <tr class="w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
+                    <td>
+                        <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
+            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:60px">
+                    </td>
+                    <td>
+                        <span class="w3-large"><b>@item.PersoneName</b></span><br>
+                        <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}@if (Model[2].Count > 0)
+{
+    <div class="w3-button w3-block w3-gray w3-left-align" onclick="myFunction('divTable2')">
+        Upcoming<i class="fa fa-caret-down"></i>
+    </div>
+    <div class="w3-hide" id="divTable2">
+        <table class="w3-table-all w3-hoverable" id="table0">
 
-<div class="w3-container">
-    <ul class="w3-ul w3-card-4 w3-hoverable ">
-        @foreach (var item in Model)
-        {
-            <li class="w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
-                <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
-            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:50px">
-                <span class="w3-large"><b>@item.PersoneName</b></span><br>
-                <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
-            </li>
+            @foreach (var item in Model[2])
+            {
+                <tr class="w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
+                    <td>
+                        <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
+            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:60px">
+                    </td>
+                    <td>
+                        <span class="w3-large"><b>@item.PersoneName</b></span><br>
+                        <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+<script>
+    function myFunction(id) {
+        var x = document.getElementById(id);
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
         }
-    </ul>
-</div>
+    }
+</script>
+
+<script>
+    function myFunctionSearch() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("table0");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

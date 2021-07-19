@@ -36,11 +36,11 @@ namespace DomainLayer
             return birthdaysVM;
         }
         //Загрузить все события
-        public List<BirthdayViewModel> GetAllBirthdays()
+        public List<List<BirthdayViewModel>> GetAllBirthdays()
         {
-            List<Birthday> birthdays = _repository.GetBirthdays();
+            List<Birthday> birthdayList = _repository.GetBirthdays();
             //Перевод сущностей в модели
-            List<BirthdayViewModel> birthdaysVM = birthdays
+            List<BirthdayViewModel> birthdaysVM = birthdayList
                 .Select(b => new BirthdayViewModel
                 {
                     Id = b.Id,
@@ -50,9 +50,41 @@ namespace DomainLayer
                     Email = b.Email,
                 })
                 .ToList();
-            //Сортировка (по дате)
-            birthdaysVM.Sort();
-            return birthdaysVM;
+
+            List<List<BirthdayViewModel>> myList = new List<List<BirthdayViewModel>>();
+            for (int i = 0; i < 3; i++)
+            {
+                myList.Add(new List<BirthdayViewModel>());
+            }
+
+            foreach (BirthdayViewModel birthday in birthdaysVM)
+            {
+                //Now
+                if ((birthday.BirthdayDate.DayOfYear == DateTime.Now.DayOfYear && birthday.BirthdayDate.Day == 29 && birthday.BirthdayDate.Month == 2) || (birthday.BirthdayDate.Day == DateTime.Now.Day && birthday.BirthdayDate.Month == DateTime.Now.Month))
+                    myList[1].Add(birthday);
+                else if (!DateTime.IsLeapYear(DateTime.Now.Year))
+                {
+                    if (birthday.BirthdayDate.DayOfYear - DateTime.Now.DayOfYear > 0 && birthday.BirthdayDate.DayOfYear - DateTime.Now.DayOfYear < 183 ||
+                        birthday.BirthdayDate.DayOfYear < DateTime.Now.AddDays(183).DayOfYear && birthday.BirthdayDate.DayOfYear > DateTime.Now.DayOfYear)
+                        myList[2].Add(birthday);
+                    else
+                        myList[0].Add(birthday);
+                }
+                else
+                {
+                    if (birthday.BirthdayDate.DayOfYear - DateTime.Now.DayOfYear >= 0 && birthday.BirthdayDate.DayOfYear - DateTime.Now.DayOfYear < 183 ||
+                        birthday.BirthdayDate.DayOfYear < DateTime.Now.AddDays(183).DayOfYear && birthday.BirthdayDate.DayOfYear >= DateTime.Now.DayOfYear)
+                        myList[2].Add(birthday);
+                    else
+                        myList[0].Add(birthday);
+                }
+            }
+            foreach(List<BirthdayViewModel> list in myList)
+            {
+                list.Sort();
+            }
+
+            return myList;
         }
         //Получить текущие события
         public List<Birthday> GetTodayBirthdaysNotNotificaded()
