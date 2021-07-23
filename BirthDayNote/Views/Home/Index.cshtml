@@ -1,20 +1,40 @@
-﻿@model List<DomainLayer.ViewModels.BirthdayViewModel>
+﻿@model List<List<DomainLayer.ViewModels.BirthdayViewModel>>
 @using System.Globalization;
 @{ ViewData["Title"] = "Home Page"; }
 
 <div class="w3-container">
-    <ul class="w3-ul w3-card-4 w3-hoverable ">
-        <li class="w3-bar w3-button w3-border w3-border-green" onclick="document.location = '/Home/Create'">
+    <ul class="w3-ul w3-card-4">
+        <li class="w3-bar w3-button w3-border w3-border-green w3-hover-light-green w3-lime" onclick="document.location = '/Home/Create'">
             <a class="w3-large"><b>Add birthday!</b></a>
         </li>
-        @foreach (var item in Model)
+        @if (Model[0].Count > 0)
         {
-            <li class="w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
-                <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
+            @foreach (var item in Model[0])
+            {
+                <li class="li1 w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
+                    <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
             else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:85px">
-                <span class="w3-large"><b>@item.PersoneName</b></span><br>
-                <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
-            </li>
+                    <div class="card w3-opacity">
+                        <span class="w3-large"><b>@item.PersoneName</b></span><br>
+                        <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
+                    </div>
+                </li>
+            }
         }
+        @if (Model[1].Count > 0)
+        {
+            @foreach (var item in Model[1])
+            {
+                <li class="li2 w3-bar" type="submit" onclick="document.location = '/Home/Details/@item.Id'">
+                    <img src=@if (item.ImageName != null) {@("~/Images/" + item.ImageName);}
+            else {@("~/Images/img_avatar1.png")} asp-append-version="true" class="w3-bar-item w3-hide-small" style="height:85px">
+                    <div class="card w3-opacity">
+                        <span class="w3-large"><b>@item.PersoneName</b></span><br>
+                        <span>@item.BirthdayDate.ToString("dd MMMM", new CultureInfo("en-US"))</span>
+                    </div>
+                </li>
+            }
+        }
+
     </ul>
 </div>
