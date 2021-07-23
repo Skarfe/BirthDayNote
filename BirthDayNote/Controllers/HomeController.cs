@@ -29,7 +29,7 @@ namespace BirthdayNote.Controllers
         public IActionResult Index()
         {
             //Начальная страница, загрузка ближайших дней рождений (в течении следующего месяца)
-            List<BirthdayViewModel> birthdays = _birthdayService.GetUpcommingBirthdays();
+            List<List<BirthdayViewModel>> birthdays = _birthdayService.GetUpcommingBirthdays();
             return View(birthdays);
         }
         public IActionResult AllBirthdays()

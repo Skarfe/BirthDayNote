@@ -17,9 +17,10 @@ namespace DomainLayer
             _repository = repository;
         }
         //Загрузить ближайшие события
-        public List<BirthdayViewModel> GetUpcommingBirthdays()
+        public List<List<BirthdayViewModel>> GetUpcommingBirthdays()
         {
             List<Birthday> birthdays = _repository.GetUpcommingBirthdays();
+
             //Перевод сущностей в модели
             List<BirthdayViewModel> birthdaysVM = birthdays
                 .Select(b => new BirthdayViewModel
@@ -31,9 +32,27 @@ namespace DomainLayer
                     Email = b.Email,
                 })
                 .ToList();
-            //Сортировка (по дате)
-            birthdaysVM.Sort();
-            return birthdaysVM;
+
+            List<List<BirthdayViewModel>> myList = new List<List<BirthdayViewModel>>();
+            for (int i = 0; i < 2; i++)
+            {
+                myList.Add(new List<BirthdayViewModel>());
+            }
+
+            foreach (BirthdayViewModel birthday in birthdaysVM)
+            {
+                if ((birthday.BirthdayDate.DayOfYear == DateTime.Now.DayOfYear && birthday.BirthdayDate.Day == 29 && birthday.BirthdayDate.Month == 2) || (birthday.BirthdayDate.Day == DateTime.Now.Day && birthday.BirthdayDate.Month == DateTime.Now.Month))
+                    myList[0].Add(birthday);
+                else
+                {
+                    myList[1].Add(birthday);
+                }
+            }
+            foreach (List<BirthdayViewModel> list in myList)
+            {
+                list.Sort();
+            }
+            return myList;
         }
         //Загрузить все события
         public List<List<BirthdayViewModel>> GetAllBirthdays()

@@ -1,0 +1,203 @@
+﻿td:nth-child(even) {
+    width: 100%;
+}
+
+.tr1:nth-child(4n+1) {
+    background: url("/background/E1.jpg");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+2) {
+    background: url("/background/E2.jpg");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+3) {
+    background: url("/background/E3.jpg");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+4) {
+    background: url("/background/E4.jpg");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+1) {
+    background: url("/background/N1.jpg");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+2) {
+    background: url("/background/N2.jpg");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+3) {
+    background: url("/background/N3.jpg");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+4) {
+    background: url("/background/N4.jpg");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+1) {
+    background: url("/background/U1.jpg");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+2) {
+    background: url("/background/U2.jpg");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+3) {
+    background: url("/background/U3.jpg");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+4) {
+    background: url("/background/U4.jpg");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+1):hover {
+    background: url("/background/E1.gif");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+2):hover {
+    background: url("/background/E2.gif");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+3):hover {
+    background: url("/background/E3.gif");
+    background-size: cover;
+}
+
+.tr1:nth-child(4n+4):hover {
+    background: url("/background/E4.gif");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+1):hover {
+    background: url("/background/N1.gif");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+2):hover {
+    background: url("/background/N2.gif");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+3):hover {
+    background: url("/background/N3.gif");
+    background-size: cover;
+}
+
+.tr2:nth-child(4n+4):hover {
+    background: url("/background/N4.gif");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+1):hover {
+    background: url("/background/U1.gif");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+2):hover {
+    background: url("/background/U2.gif");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+3):hover {
+    background: url("/background/U3.gif");
+    background-size: cover;
+}
+
+.tr3:nth-child(4n+4):hover {
+    background: url("/background/U4.gif");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+1) {
+    background: url("/background/N1.jpg");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+2) {
+    background: url("/background/N2.jpg");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+3) {
+    background: url("/background/N3.jpg");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+4) {
+    background: url("/background/N4.jpg");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+1) {
+    background: url("/background/U1.jpg");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+2) {
+    background: url("/background/U2.jpg");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+3) {
+    background: url("/background/U3.jpg");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+4) {
+    background: url("/background/U4.jpg");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+1):hover {
+    background: url("/background/N1.gif");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+2):hover {
+    background: url("/background/N2.gif");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+3):hover {
+    background: url("/background/N3.gif");
+    background-size: cover;
+}
+
+.li1:nth-child(4n+4):hover {
+    background: url("/background/N4.gif");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+1):hover {
+    background: url("/background/U1.gif");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+2):hover {
+    background: url("/background/U2.gif");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+3):hover {
+    background: url("/background/U3.gif");
+    background-size: cover;
+}
+
+.li2:nth-child(4n+4):hover {
+    background: url("/background/U4.gif");
+    background-size: cover;
+}
